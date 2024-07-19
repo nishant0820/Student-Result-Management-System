@@ -59,6 +59,7 @@ class Student:
         
         #------------ entry fields -------------
         self.course_list=[""]
+        self.fetch_course()
         # function call to update the list
         txt_dob=Entry(self.root,textvariable=self.var_dob,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=480,y=60,width=200)
         txt_contact=Entry(self.root,textvariable=self.var_contact,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=480,y=100,width=200)
@@ -95,38 +96,38 @@ class Student:
 
         scrolly=Scrollbar(self.C_Frame,orient=VERTICAL)
         scrollx=Scrollbar(self.C_Frame,orient=HORIZONTAL)
-        self.CourseTable=ttk.Treeview(self.C_Frame,columns=("roll","name","email","gender","dob","contact","admission","course","state","city","pin","address"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
+        self.StudentTable=ttk.Treeview(self.C_Frame,columns=("roll","name","email","gender","dob","contact","admission","course","state","city","pin","address"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
         scrollx.pack(side=BOTTOM,fill=X)
         scrolly.pack(side=RIGHT,fill=Y)
-        scrollx.config(command=self.CourseTable.xview)
-        scrolly.config(command=self.CourseTable.yview)
-        self.CourseTable.heading("roll",text="Roll No.")
-        self.CourseTable.heading("name",text="Name")
-        self.CourseTable.heading("email",text="Email")
-        self.CourseTable.heading("gender",text="Gender")
-        self.CourseTable.heading("dob",text="D.O.B.")
-        self.CourseTable.heading("contact",text="Contact")
-        self.CourseTable.heading("admission",text="Admission")
-        self.CourseTable.heading("course",text="Course")
-        self.CourseTable.heading("state",text="State")
-        self.CourseTable.heading("city",text="City")
-        self.CourseTable.heading("pin",text="Pin")
-        self.CourseTable.heading("address",text="Address")
-        self.CourseTable["show"]='headings'
-        self.CourseTable.column("roll",width=100)
-        self.CourseTable.column("name",width=100)
-        self.CourseTable.column("email",width=100)
-        self.CourseTable.column("gender",width=100)
-        self.CourseTable.column("dob",width=100)
-        self.CourseTable.column("contact",width=100)
-        self.CourseTable.column("admission",width=100)
-        self.CourseTable.column("course",width=100)
-        self.CourseTable.column("state",width=100)
-        self.CourseTable.column("city",width=100)
-        self.CourseTable.column("pin",width=100)
-        self.CourseTable.column("address",width=200)
-        self.CourseTable.pack(fill=BOTH,expand=1)
-        self.CourseTable.bind("<ButtonRelease-1>",self.get_data)
+        scrollx.config(command=self.StudentTable.xview)
+        scrolly.config(command=self.StudentTable.yview)
+        self.StudentTable.heading("roll",text="Roll No.")
+        self.StudentTable.heading("name",text="Name")
+        self.StudentTable.heading("email",text="Email")
+        self.StudentTable.heading("gender",text="Gender")
+        self.StudentTable.heading("dob",text="D.O.B.")
+        self.StudentTable.heading("contact",text="Contact")
+        self.StudentTable.heading("admission",text="Admission")
+        self.StudentTable.heading("course",text="Course")
+        self.StudentTable.heading("state",text="State")
+        self.StudentTable.heading("city",text="City")
+        self.StudentTable.heading("pin",text="Pin")
+        self.StudentTable.heading("address",text="Address")
+        self.StudentTable["show"]='headings'
+        self.StudentTable.column("roll",width=100)
+        self.StudentTable.column("name",width=100)
+        self.StudentTable.column("email",width=100)
+        self.StudentTable.column("gender",width=100)
+        self.StudentTable.column("dob",width=100)
+        self.StudentTable.column("contact",width=100)
+        self.StudentTable.column("admission",width=100)
+        self.StudentTable.column("course",width=100)
+        self.StudentTable.column("state",width=100)
+        self.StudentTable.column("city",width=100)
+        self.StudentTable.column("pin",width=100)
+        self.StudentTable.column("address",width=200)
+        self.StudentTable.pack(fill=BOTH,expand=1)
+        self.StudentTable.bind("<ButtonRelease-1>",self.get_data)
         self.show()
 #-----------------------------------------------------------------------------------------------------------
 
@@ -135,21 +136,29 @@ class Student:
         cur=con.cursor()
         try:
             if self.var_roll.get()=="":
-                messagebox.showerror("Error","Course Name should be required",parent=self.root)
+                messagebox.showerror("Error","Roll Number should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_roll.get(),))
+                cur.execute("select * from student where roll=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row!=None:
-                    messagebox.showerror("Error","Course Name akready present",parent=self.root)
+                    messagebox.showerror("Error","Roll Number akready present",parent=self.root)
                 else:
-                    cur.execute("insert into course (name,duration,charges,description) values(?,?,?,?)",(
+                    cur.execute("insert into student (roll,name,email,gender,dob,contact,admission,course,state,city,pin,address) values(?,?,?,?,?,?,?,?,?,?,?,?)",(
                         self.var_roll.get(),
-                        self.var_duration.get(),
-                        self.var_charges.get(),
-                        self.txt_description.get("1.0",END)
+                        self.var_name.get(),
+                        self.var_email.get(),
+                        self.var_gender.get(),
+                        self.var_dob.get(),
+                        self.var_contact.get(),
+                        self.var_a_date.get(),
+                        self.var_course.get(),
+                        self.var_state.get(),
+                        self.var_city.get(),
+                        self.var_pin.get(),
+                        self.txt_address.get("1.0",END)
                     ))
                     con.commit()
-                    messagebox.showinfo("Success","Course Added Successfully",parent=self.root)
+                    messagebox.showinfo("Success","Student Added Successfully",parent=self.root)
                     self.show()
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
@@ -158,11 +167,14 @@ class Student:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            cur.execute(f"select * from course where name LIKE '%{self.var_search.get()}%'")
-            rows=cur.fetchall()
-            self.CourseTable.delete(*self.CourseTable.get_children())
-            for row in rows:
-                self.CourseTable.insert('',END,values=row)
+            cur.execute(f"select * from student where roll=?",(self.var_roll.get(),))
+            rows=cur.fetchone()
+            if rows!=None:
+                self.StudentTable.delete(*self.StudentTable.get_children())
+                for row in rows:
+                    self.StudentTable.insert('',END,values=row)
+            else:
+                messagebox.showerror("Error","No record found!!!",parent=self.root)
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
 
@@ -170,18 +182,30 @@ class Student:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            cur.execute("select * from course")
+            cur.execute("select * from student")
             rows=cur.fetchall()
-            self.CourseTable.delete(*self.CourseTable.get_children())
+            self.StudentTable.delete(*self.StudentTable.get_children())
             for row in rows:
-                self.CourseTable.insert('',END,values=row)
+                self.StudentTable.insert('',END,values=row)
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to: {str(ex)}")
+
+    def fetch_course(self):
+        con=sqlite3.connect(database="rms.db")
+        cur=con.cursor()
+        try:
+            cur.execute("select name from course")
+            rows=cur.fetchall()
+            if len(rows)>0:
+                for row in rows:
+                    self.course_list.append(row[0])
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
 
     def get_data(self,ev):
         self.txt_roll.config(state='readonly')
-        r=self.CourseTable.focus()
-        content=self.CourseTable.item(r)
+        r=self.StudentTable.focus()
+        content=self.StudentTable.item(r)
         row=content["values"]
         self.var_roll.set(row[1])
         self.var_duration.set(row[2])
