@@ -15,23 +15,61 @@ class Student:
         title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=10,y=15,width=1180,height=35)
 
         #----------- variables ------------
+        self.var_roll=StringVar()
+        self.var_name=StringVar()
+        self.var_email=StringVar()
+        self.var_gender=StringVar()
+        self.var_dob=StringVar()
+        self.var_contact=StringVar()
         self.var_course=StringVar()
-        self.var_duration=StringVar()
-        self.var_charges=StringVar()
+        self.var_a_date=StringVar()
+        self.var_state=StringVar()
+        self.var_city=StringVar()
+        self.var_pin=StringVar()
 
         #------------- widgets -----------------
-        lbl_courseName=Label(self.root,text="Course Name",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=60)
-        lbl_duration=Label(self.root,text="Duration",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=100)
-        lbl_charges=Label(self.root,text="Charges",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=140)
-        lbl_description=Label(self.root,text="Description",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=180)
+        #--------- column 1 ---------------
+        lbl_roll=Label(self.root,text="Roll No.",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=60)
+        lbl_name=Label(self.root,text="Name",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=100)
+        lbl_email=Label(self.root,text="Email",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=140)
+        lbl_gender=Label(self.root,text="Gender",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=180)
+        lbl_state=Label(self.root,text="State",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=220)
+        txt_state=Entry(self.root,textvariable=self.var_state,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=150,y=220,width=150)
+        lbl_city=Label(self.root,text="City",font=("goudy old style",15,"bold"),bg="white").place(x=310,y=220)
+        txt_city=Entry(self.root,textvariable=self.var_city,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=380,y=220,width=100)
+        lbl_pin=Label(self.root,text="Pin",font=("goudy old style",15,"bold"),bg="white").place(x=500,y=220)
+        txt_pin=Entry(self.root,textvariable=self.var_pin,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=560,y=220,width=120)
+        
+        lbl_address=Label(self.root,text="Address",font=("goudy old style",15,"bold"),bg="white").place(x=10,y=260)
         
         #------------ entry fields -------------
-        self.txt_courseName=Entry(self.root,textvariable=self.var_course,font=("goudy old style",15,"bold"),bg="lightyellow")
-        self.txt_courseName.place(x=150,y=60,width=200)
-        txt_duration=Entry(self.root,textvariable=self.var_duration,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=150,y=100,width=200)
-        txt_charges=Entry(self.root,textvariable=self.var_charges,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=150,y=140,width=200)
-        self.txt_description=Text(self.root,font=("goudy old style",15,"bold"),bg="lightyellow")
-        self.txt_description.place(x=150,y=180,width=500,height=130)
+        self.txt_roll=Entry(self.root,textvariable=self.var_roll,font=("goudy old style",15,"bold"),bg="lightyellow")
+        self.txt_roll.place(x=150,y=60,width=200)
+        txt_name=Entry(self.root,textvariable=self.var_name,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=150,y=100,width=200)
+        txt_email=Entry(self.root,textvariable=self.var_email,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=150,y=140,width=200)
+        self.txt_gender=ttk.Combobox(self.root,textvariable=self.var_gender,values=("Select","Male","Female","Other"),font=("goudy old style",15,"bold"),state='readonly',justify=CENTER)
+        self.txt_gender.place(x=150,y=180,width=200)
+        self.txt_gender.current(0)
+
+        #--------- column 2 ---------------
+        lbl_dob=Label(self.root,text="D.O.B.",font=("goudy old style",15,"bold"),bg="white").place(x=360,y=60)
+        lbl_contact=Label(self.root,text="Contact",font=("goudy old style",15,"bold"),bg="white").place(x=360,y=100)
+        lbl_admission=Label(self.root,text="Admission",font=("goudy old style",15,"bold"),bg="white").place(x=360,y=140)
+        lbl_course=Label(self.root,text="Course",font=("goudy old style",15,"bold"),bg="white").place(x=360,y=180)
+        
+        #------------ entry fields -------------
+        self.course_list=[""]
+        # function call to update the list
+        txt_dob=Entry(self.root,textvariable=self.var_dob,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=480,y=60,width=200)
+        txt_contact=Entry(self.root,textvariable=self.var_contact,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=480,y=100,width=200)
+        txt_admission=Entry(self.root,textvariable=self.var_a_date,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=480,y=140,width=200)
+        self.txt_course=ttk.Combobox(self.root,textvariable=self.var_course,values=self.course_list,font=("goudy old style",15,"bold"),state='readonly',justify=CENTER)
+        self.txt_course.place(x=480,y=180,width=200)
+        self.txt_course.set("Select")
+        
+        #------------ TexT Address -----------------
+        self.txt_address=Text(self.root,font=("goudy old style",15,"bold"),bg="lightyellow")
+        self.txt_address.place(x=150,y=260,width=540,height=100)
 
         #----------------- buttons ----------------
         self.btn_add=Button(self.root,text="Save",command=self.add,font=("goudy old style",15,"bold"),bg="#2196f3",fg="white",cursor="hand2")
@@ -82,16 +120,16 @@ class Student:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            if self.var_course.get()=="":
+            if self.var_roll.get()=="":
                 messagebox.showerror("Error","Course Name should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_course.get(),))
+                cur.execute("select * from course where name=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row!=None:
                     messagebox.showerror("Error","Course Name akready present",parent=self.root)
                 else:
                     cur.execute("insert into course (name,duration,charges,description) values(?,?,?,?)",(
-                        self.var_course.get(),
+                        self.var_roll.get(),
                         self.var_duration.get(),
                         self.var_charges.get(),
                         self.txt_description.get("1.0",END)
@@ -127,11 +165,11 @@ class Student:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
 
     def get_data(self,ev):
-        self.txt_courseName.config(state='readonly')
+        self.txt_roll.config(state='readonly')
         r=self.CourseTable.focus()
         content=self.CourseTable.item(r)
         row=content["values"]
-        self.var_course.set(row[1])
+        self.var_roll.set(row[1])
         self.var_duration.set(row[2])
         self.var_charges.set(row[3])
         self.txt_description.delete('1.0',END)
@@ -141,10 +179,10 @@ class Student:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            if self.var_course.get()=="":
+            if self.var_roll.get()=="":
                 messagebox.showerror("Error","Course Name should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_course.get(),))
+                cur.execute("select * from course where name=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Select Course from list",parent=self.root)
@@ -153,7 +191,7 @@ class Student:
                         self.var_duration.get(),
                         self.var_charges.get(),
                         self.txt_description.get("1.0",END),
-                        self.var_course.get()
+                        self.var_roll.get()
                     ))
                     con.commit()
                     messagebox.showinfo("Success","Course Updated Successfully",parent=self.root)
@@ -163,28 +201,28 @@ class Student:
 
     def clear(self):
         self.show()
-        self.var_course.set("")
+        self.var_roll.set("")
         self.var_duration.set("")
         self.var_charges.set("")
         self.var_search.set("")
         self.txt_description.delete('1.0',END)
-        self.txt_courseName.config(state=NORMAL)
+        self.txt_roll.config(state=NORMAL)
 
     def delete(self):
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            if self.var_course.get()=="":
+            if self.var_roll.get()=="":
                 messagebox.showerror("Error","Course Name should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_course.get(),))
+                cur.execute("select * from course where name=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row==None:
                     messagebox.showerror("Error","Please select course from the list",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
                     if op==True:
-                        cur.execute("delete from course where name=?",(self.var_course.get(),))
+                        cur.execute("delete from course where name=?",(self.var_roll.get(),))
                         con.commit()
                         messagebox.showinfo("Delete","Course Deleted Successfully",parent=self.root)
                         self.clear()
