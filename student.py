@@ -167,12 +167,11 @@ class Student:
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
-            cur.execute(f"select * from student where roll=?",(self.var_roll.get(),))
-            rows=cur.fetchone()
-            if rows!=None:
+            cur.execute("select * from student where roll=?",(self.var_search.get(),))
+            row=cur.fetchone()
+            if row!=None:
                 self.StudentTable.delete(*self.StudentTable.get_children())
-                for row in rows:
-                    self.StudentTable.insert('',END,values=row)
+                self.StudentTable.insert('',END,values=row)
             else:
                 messagebox.showerror("Error","No record found!!!",parent=self.root)
         except Exception as ex:
@@ -207,32 +206,48 @@ class Student:
         r=self.StudentTable.focus()
         content=self.StudentTable.item(r)
         row=content["values"]
-        self.var_roll.set(row[1])
-        self.var_duration.set(row[2])
-        self.var_charges.set(row[3])
-        self.txt_description.delete('1.0',END)
-        self.txt_description.insert(END,row[4])
+        self.var_roll.set(row[0])
+        self.var_name.set(row[1])
+        self.var_email.set(row[2])
+        self.var_gender.set(row[3])
+        self.var_dob.set(row[4])
+        self.var_contact.set(row[5])
+        self.var_a_date.set(row[6])
+        self.var_course.set(row[7])
+        self.var_state.set(row[8])
+        self.var_city.set(row[9])
+        self.var_pin.set(row[10])
+        self.txt_address.delete("1.0",END)
+        self.txt_address.insert(END,row[11])
 
     def update(self):
         con=sqlite3.connect(database="rms.db")
         cur=con.cursor()
         try:
             if self.var_roll.get()=="":
-                messagebox.showerror("Error","Course Name should be required",parent=self.root)
+                messagebox.showerror("Error","Roll No. should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_roll.get(),))
+                cur.execute("select * from student where roll=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row==None:
-                    messagebox.showerror("Error","Select Course from list",parent=self.root)
+                    messagebox.showerror("Error","Select Student from list",parent=self.root)
                 else:
-                    cur.execute("update course set duration=?,charges=?,description=? where name=?",(
-                        self.var_duration.get(),
-                        self.var_charges.get(),
-                        self.txt_description.get("1.0",END),
-                        self.var_roll.get()
+                    cur.execute("update student set name=?,email=?,gender=?,dob=?,contact=?,admission=?,course=?,state=?,city=?,pin=?,address=? where roll=?",(
+                        self.var_name.get(),
+                        self.var_email.get(),
+                        self.var_gender.get(),
+                        self.var_dob.get(),
+                        self.var_contact.get(),
+                        self.var_a_date.get(),
+                        self.var_course.get(),
+                        self.var_state.get(),
+                        self.var_city.get(),
+                        self.var_pin.get(),
+                        self.txt_address.get("1.0",END),
+                        self.var_roll.get(),
                     ))
                     con.commit()
-                    messagebox.showinfo("Success","Course Updated Successfully",parent=self.root)
+                    messagebox.showinfo("Success","Student Updated Successfully",parent=self.root)
                     self.show()
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
@@ -240,10 +255,18 @@ class Student:
     def clear(self):
         self.show()
         self.var_roll.set("")
-        self.var_duration.set("")
-        self.var_charges.set("")
+        self.var_name.set("")
+        self.var_email.set("")
+        self.var_gender.set("Select")
+        self.var_dob.set("")
+        self.var_contact.set("")
+        self.var_a_date.set("")
+        self.var_course.set("Select")
+        self.var_state.set("")
+        self.var_city.set("")
+        self.var_pin.set("")
         self.var_search.set("")
-        self.txt_description.delete('1.0',END)
+        self.txt_address.delete("1.0",END)
         self.txt_roll.config(state=NORMAL)
 
     def delete(self):
