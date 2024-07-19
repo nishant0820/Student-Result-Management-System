@@ -12,7 +12,7 @@ class Student:
         self.root.focus_force()
 
         #------------- title --------------
-        title=Label(self.root,text="Manage Course Details",font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=10,y=15,width=1180,height=35)
+        title=Label(self.root,text="Manage Student Details",font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=10,y=15,width=1180,height=35)
 
         #----------- variables ------------
         self.var_roll=StringVar()
@@ -84,8 +84,8 @@ class Student:
         #-------------- search panel -----------------
         self.var_search=StringVar()
 
-        lbl_search_courseName=Label(self.root,text="Course Name",font=("goudy old style",15,"bold"),bg="white").place(x=720,y=60)
-        txt_search_courseName=Entry(self.root,textvariable=self.var_search,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=870,y=60,width=180)
+        lbl_search_roll=Label(self.root,text="Roll No.",font=("goudy old style",15,"bold"),bg="white").place(x=720,y=60)
+        txt_search_roll=Entry(self.root,textvariable=self.var_search,font=("goudy old style",15,"bold"),bg="lightyellow").place(x=870,y=60,width=180)
         
         btn_search=Button(self.root,text="Search",command=self.search,font=("goudy old style",15,"bold"),bg="#03a9f4",fg="white",cursor="hand2").place(x=1070,y=60,width=120,height=28)
 
@@ -95,22 +95,36 @@ class Student:
 
         scrolly=Scrollbar(self.C_Frame,orient=VERTICAL)
         scrollx=Scrollbar(self.C_Frame,orient=HORIZONTAL)
-        self.CourseTable=ttk.Treeview(self.C_Frame,columns=("cid","name","duration","charges","description"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
+        self.CourseTable=ttk.Treeview(self.C_Frame,columns=("roll","name","email","gender","dob","contact","admission","course","state","city","pin","address"),xscrollcommand=scrollx.set,yscrollcommand=scrolly.set)
         scrollx.pack(side=BOTTOM,fill=X)
         scrolly.pack(side=RIGHT,fill=Y)
         scrollx.config(command=self.CourseTable.xview)
         scrolly.config(command=self.CourseTable.yview)
-        self.CourseTable.heading("cid",text="Course ID")
+        self.CourseTable.heading("roll",text="Roll No.")
         self.CourseTable.heading("name",text="Name")
-        self.CourseTable.heading("duration",text="Duration")
-        self.CourseTable.heading("charges",text="Charges")
-        self.CourseTable.heading("description",text="Description")
+        self.CourseTable.heading("email",text="Email")
+        self.CourseTable.heading("gender",text="Gender")
+        self.CourseTable.heading("dob",text="D.O.B.")
+        self.CourseTable.heading("contact",text="Contact")
+        self.CourseTable.heading("admission",text="Admission")
+        self.CourseTable.heading("course",text="Course")
+        self.CourseTable.heading("state",text="State")
+        self.CourseTable.heading("city",text="City")
+        self.CourseTable.heading("pin",text="Pin")
+        self.CourseTable.heading("address",text="Address")
         self.CourseTable["show"]='headings'
-        self.CourseTable.column("cid",width=100)
+        self.CourseTable.column("roll",width=100)
         self.CourseTable.column("name",width=100)
-        self.CourseTable.column("duration",width=100)
-        self.CourseTable.column("charges",width=100)
-        self.CourseTable.column("description",width=150)
+        self.CourseTable.column("email",width=100)
+        self.CourseTable.column("gender",width=100)
+        self.CourseTable.column("dob",width=100)
+        self.CourseTable.column("contact",width=100)
+        self.CourseTable.column("admission",width=100)
+        self.CourseTable.column("course",width=100)
+        self.CourseTable.column("state",width=100)
+        self.CourseTable.column("city",width=100)
+        self.CourseTable.column("pin",width=100)
+        self.CourseTable.column("address",width=200)
         self.CourseTable.pack(fill=BOTH,expand=1)
         self.CourseTable.bind("<ButtonRelease-1>",self.get_data)
         self.show()
