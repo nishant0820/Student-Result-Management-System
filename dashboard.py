@@ -6,6 +6,7 @@ from student import Student
 from report import Report
 from result import Result
 from datetime import *
+import sqlite3
 from math import *
 import time
 import os
@@ -56,6 +57,7 @@ class RMS:
         #------------- footer --------------
         footer=Label(self.root,text="Student Result Management System\nContact Us for any Technical Issue: 9899459288",font=("goudy old style",12),bg="#262626",fg="white").pack(side=BOTTOM,fill=X)
 
+        self.update_details()
 #----------------------------------------------------------------------------------------------------
     def add_course(self):
         self.new_win=Toplevel(self.root)
@@ -109,6 +111,29 @@ class RMS:
         self.img=ImageTk.PhotoImage(file="Student-Result-Management-System/images/clock_new.png")
         self.lbl.config(image=self.img)
         self.lbl.after(200,self.working)
+
+    def update_details(self):
+        con=sqlite3.connect(database="rms.db")
+        cur=con.cursor()
+        try:
+            cur.execute("select * from course")
+            cr=cur.fetchall()
+            self.lbl_course.config(text=f"Total Courses\n[{str(len(cr))}]")
+
+            cur.execute("select * from student")
+            st=cur.fetchall()
+            self.lbl_student.config(text=f"Total Students\n[{str(len(st))}]")
+
+            cur.execute("select * from result")
+            rs=cur.fetchall()
+            self.lbl_result.config(text=f"Total Results\n[{str(len(rs))}]")
+
+            self.lbl_course.after(200,self.update_details)
+            self.lbl_student.after(200,self.update_details)
+            self.lbl_result.after(200,self.update_details)
+            
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to: {str(ex)}")
 
 
 if __name__=="__main__":
