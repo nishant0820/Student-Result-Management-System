@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import Image,ImageTk
 from course import Course
 from student import Student
+from report import Report
+from result import Result
 
 class RMS:
     def __init__(self,root):
@@ -22,8 +24,8 @@ class RMS:
 
         btn_course=Button(M_Frame,text="Course",command=self.add_course,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=20,y=5,width=250,height=40)
         btn_student=Button(M_Frame,text="Student",command=self.add_student,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=280,y=5,width=250,height=40)
-        btn_result=Button(M_Frame,text="Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=540,y=5,width=250,height=40)
-        btn_view=Button(M_Frame,text="View Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=800,y=5,width=250,height=40)
+        btn_result=Button(M_Frame,text="Result",command=self.add_result,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=540,y=5,width=250,height=40)
+        btn_view=Button(M_Frame,text="View Result",command=self.add_report,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=800,y=5,width=250,height=40)
         btn_exit=Button(M_Frame,text="Exit",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=1060,y=5,width=250,height=40)
 
         #---------- content window ----------------
@@ -52,6 +54,14 @@ class RMS:
     def add_student(self):
         self.new_win=Toplevel(self.root)
         self.new_obj=Student(self.new_win)
+
+    def add_result(self):
+        self.new_win=Toplevel(self.root)
+        self.new_obj=Result(self.new_win)
+
+    def add_report(self):
+        self.new_win=Toplevel(self.root)
+        self.new_obj=Report(self.new_win)
 
 
 if __name__=="__main__":
