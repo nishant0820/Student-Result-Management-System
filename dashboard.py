@@ -1,9 +1,11 @@
 from tkinter import *
+from tkinter import ttk,messagebox
 from PIL import Image,ImageTk
 from course import Course
 from student import Student
 from report import Report
 from result import Result
+import os
 
 class RMS:
     def __init__(self,root):
@@ -26,7 +28,7 @@ class RMS:
         btn_student=Button(M_Frame,text="Student",command=self.add_student,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=280,y=5,width=250,height=40)
         btn_result=Button(M_Frame,text="Result",command=self.add_result,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=540,y=5,width=250,height=40)
         btn_view=Button(M_Frame,text="View Result",command=self.add_report,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=800,y=5,width=250,height=40)
-        btn_exit=Button(M_Frame,text="Exit",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=1060,y=5,width=250,height=40)
+        btn_exit=Button(M_Frame,text="Exit",command=self.exit,font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=1060,y=5,width=250,height=40)
 
         #---------- content window ----------------
         self.bg_img=Image.open("Student-Result-Management-System/images/bg.png")
@@ -62,6 +64,11 @@ class RMS:
     def add_report(self):
         self.new_win=Toplevel(self.root)
         self.new_obj=Report(self.new_win)
+
+    def exit(self):
+        op=messagebox.askyesno("Confirm","Do you really want to exit?",parent=self.root)
+        if op==True:
+            self.root.destroy()
 
 
 if __name__=="__main__":
