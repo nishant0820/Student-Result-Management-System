@@ -274,18 +274,18 @@ class Student:
         cur=con.cursor()
         try:
             if self.var_roll.get()=="":
-                messagebox.showerror("Error","Course Name should be required",parent=self.root)
+                messagebox.showerror("Error","Roll No should be required",parent=self.root)
             else:
-                cur.execute("select * from course where name=?",(self.var_roll.get(),))
+                cur.execute("select * from student where roll=?",(self.var_roll.get(),))
                 row=cur.fetchone()
                 if row==None:
-                    messagebox.showerror("Error","Please select course from the list",parent=self.root)
+                    messagebox.showerror("Error","Please select student from the list",parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm","Do you really want to delete?",parent=self.root)
                     if op==True:
-                        cur.execute("delete from course where name=?",(self.var_roll.get(),))
+                        cur.execute("delete from student where roll=?",(self.var_roll.get(),))
                         con.commit()
-                        messagebox.showinfo("Delete","Course Deleted Successfully",parent=self.root)
+                        messagebox.showinfo("Delete","Student Deleted Successfully",parent=self.root)
                         self.clear()
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to: {str(ex)}")
