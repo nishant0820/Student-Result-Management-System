@@ -1,10 +1,13 @@
 from tkinter import *
 from tkinter import ttk,messagebox
-from PIL import Image,ImageTk
+from PIL import Image,ImageTk,ImageDraw
 from course import Course
 from student import Student
 from report import Report
 from result import Result
+from datetime import *
+from math import *
+import time
 import os
 
 class RMS:
@@ -45,6 +48,11 @@ class RMS:
         self.lbl_result=Label(self.root,text="Total Results\n[ 0 ]",font=("goudy old style",20),bd=10,relief=RIDGE,bg="#038074",fg="white")
         self.lbl_result.place(x=1020,y=540,width=300,height=100)
 
+        #----------- clock -------------
+        self.lbl=Label(self.root,text="\nClock",font=("Book Antiqua",25,"bold"),fg="white",compound=BOTTOM,bg="#081923",bd=0)
+        self.lbl.place(x=10,y=180,height=450,width=350)
+        self.working()
+
         #------------- footer --------------
         footer=Label(self.root,text="Student Result Management System\nContact Us for any Technical Issue: 9899459288",font=("goudy old style",12),bg="#262626",fg="white").pack(side=BOTTOM,fill=X)
 
@@ -69,6 +77,38 @@ class RMS:
         op=messagebox.askyesno("Confirm","Do you really want to exit?",parent=self.root)
         if op==True:
             self.root.destroy()
+
+    def clock_image(self,hr,min_,sec_):
+        clock=Image.new("RGB",(400,400),(8,25,35))
+        draw=ImageDraw.Draw(clock)
+        #---------- For Clock Image ------------
+        bg=Image.open("Student-Result-Management-System/images/c.png")
+        bg=bg.resize((300,300))
+        clock.paste(bg,(50,50))
+
+        #---------- Hour Line Image ---------------
+        origin=200,200
+        draw.line((origin,200+50*sin(radians(hr)),200-50*cos(radians(hr))),fill="#DF005E",width=4)
+        #---------- Min Line Image --------------
+        draw.line((origin,200+80*sin(radians(min_)),200-80*cos(radians(min_))),fill="white",width=3)
+        #---------- Sec Line Image --------------
+        draw.line((origin,200+100*sin(radians(sec_)),200-100*cos(radians(sec_))),fill="yellow",width=2)
+        draw.ellipse((195,195,210,210),fill="#1AD5D5")
+        clock.save("Student-Result-Management-System/images/clock_new.png")
+
+    def working(self):
+        h=datetime.now().time().hour
+        m=datetime.now().time().minute
+        s=datetime.now().time().second
+
+        hr=(h/12)*360
+        min_=(m/60)*360
+        sec_=(s/60)*360
+
+        self.clock_image(hr,min_,sec_)
+        self.img=ImageTk.PhotoImage(file="Student-Result-Management-System/images/clock_new.png")
+        self.lbl.config(image=self.img)
+        self.lbl.after(200,self.working)
 
 
 if __name__=="__main__":
