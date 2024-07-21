@@ -50,3 +50,14 @@ This script is the dashboard of Student Result Management System containing butt
 5. Click on the `result button` to add results.
 6. Now click on the `report button` to see the report.
 7. Now click on the `exit button` to close it.
+
+### Pre-Requisites
+Ensure that you have the following Python Pakages installed in your PC:
+- `time`: `pip install time`
+- `pil`: `pip install pil`
+- `sqlite3`: `pip install sqlite3`
+- `os`: `pip install os`
+
+### Configuration
+- Before running `dashboard.py`, make su.py` file firre to run `create_dbst and create a folder named `images`.
+- In `images` folder save your images regarding this project.
