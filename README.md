@@ -13,13 +13,11 @@ This project includes 6 python scripts that demonstrate how to interact with a G
 6. `create_db.py`
 
 ### 1. dashboard.py
-This script is the dashboard of Student Result Management System containing buttons, images, labels and clock.
-
-![alt text](image.png)
-
-#### How it Works:
+- This script is the dashboard of Student Result Management System containing buttons, images, labels and clock.
 - The screen shows the options for `Course`, `Student`, `Result`, `View Result` and `Exit`
 - This screen also updates timely as you perform operations on any of these Labels.
+
+![alt text](image.png)
 
 ### 2. course.py
 - This screen collects and shows the complete data regarding the student `course`.
@@ -32,6 +30,8 @@ This script is the dashboard of Student Result Management System containing butt
 - This screen collects and shows the complete data regarding `students`.
 - Buttons are functionalised accordingly.
 - You can search a particular student details by `roll no.`.
+
+![alt text](image-2.png)
 
 ### 4. result.py
 - This screen collects the `result` of a student by its roll no.
