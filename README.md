@@ -37,10 +37,14 @@ This project includes 6 python scripts that demonstrate how to interact with a G
 - This screen collects the `result` of a student by its roll no.
 - Buttons are functionalised accordingly.
 
+![alt text](image-3.png)
+
 ### 5. report.py
 - This screen shows the complete `report` of student marks.
 - Buttons are functionalised accordingly.
 - You can search a particular student report through `roll no.`.
+
+![alt text](image-4.png)
 
 ### 6. creat_db.py
 - This is the database file for all the tables.
