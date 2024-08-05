@@ -26,6 +26,8 @@ This script is the dashboard of Student Result Management System containing butt
 - Buttons are functionalised accordingly.
 - You can search any course through its `course name`.
 
+![alt text](image-1.png)
+
 ### 3. student.py
 - This screen collects and shows the complete data regarding `students`.
 - Buttons are functionalised accordingly.
