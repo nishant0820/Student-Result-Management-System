@@ -15,6 +15,8 @@ This project includes 6 python scripts that demonstrate how to interact with a G
 ### 1. dashboard.py
 This script is the dashboard of Student Result Management System containing buttons, images, labels and clock.
 
+![alt text](image.png)
+
 #### How it Works:
 - The screen shows the options for `Course`, `Student`, `Result`, `View Result` and `Exit`
 - This screen also updates timely as you perform operations on any of these Labels.
