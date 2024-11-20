@@ -67,5 +67,5 @@ Ensure that you have the following Python Pakages installed in your PC:
 - `os`: `pip install os`
 
 ### Configuration
-- Before running `dashboard.py`, make su.py` file firre to run `create_dbst and create a folder named `images`.
+- Before running `dashboard.py`, make sure first to run `create_db.py` file and create a folder named `images`.
 - In `images` folder save your images regarding this project.
