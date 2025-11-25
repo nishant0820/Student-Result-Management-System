@@ -30,6 +30,7 @@ This project includes 6 python scripts that demonstrate how to interact with a G
 - This screen collects and shows the complete data regarding `students`.
 - Buttons are functionalised accordingly.
 - You can search a particular student details by `roll no.`.
+- You can add any number of courses to same student with same `roll no`.
 
 ![alt text](image-2.png)
 
@@ -43,6 +44,7 @@ This project includes 6 python scripts that demonstrate how to interact with a G
 - This screen shows the complete `report` of student marks.
 - Buttons are functionalised accordingly.
 - You can search a particular student report through `roll no.`.
+- You can export the result in pdf format for your reference.
 
 ![alt text](image-4.png)
 
